@@ -18,3 +18,10 @@ struct OperatorsApp: App {
         }
     }
 }
+
+#Preview {
+    ContentView()
+        .onAppear {
+            run()
+        }
+}
