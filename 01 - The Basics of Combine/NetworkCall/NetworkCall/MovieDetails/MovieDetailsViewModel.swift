@@ -28,8 +28,8 @@ class MovieDetailsViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .map { (credits: $0.0, reviews: $0.1) }
             .assign(to: &$data)
-//            .sink { [weak self] data in
-//                self?.data = data
+//            .sink { [weak self] result in
+//                self?.data = result
 //            }
 //            .store(in: &cancellables)
     }

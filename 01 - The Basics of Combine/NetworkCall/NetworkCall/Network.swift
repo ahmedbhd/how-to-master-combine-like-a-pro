@@ -40,7 +40,7 @@ enum NetworkingError: Error {
 
 func fetchCredits(for movie: Movie) -> some Publisher<MovieCreditsResponse, Error> {
     guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(movie.id)/credits?api_key=\(apiKey)")
-    else { return Fail(error: NetworkingError.invalidURL).eraseToAnyPublisher() }
+    else { return Fail(error: NetworkingError.invalidURL).eraseToAnyPublisher() } /// Error
     
     return URLSession
         .shared
@@ -52,7 +52,7 @@ func fetchCredits(for movie: Movie) -> some Publisher<MovieCreditsResponse, Erro
 
 func fetchReviews(for movie: Movie) -> some Publisher<MovieReviewsResponse, Error> {
     guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(movie.id)/reviews?api_key=\(apiKey)")
-    else { return Fail(error: NetworkingError.invalidURL).eraseToAnyPublisher() }
+    else { return Fail(error: NetworkingError.invalidURL).eraseToAnyPublisher() } /// Error
     
     return URLSession
         .shared

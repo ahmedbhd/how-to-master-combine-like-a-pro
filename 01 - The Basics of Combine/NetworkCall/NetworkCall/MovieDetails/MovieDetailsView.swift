@@ -27,7 +27,7 @@ struct MovieDetailsView: View {
                     }
                 }
             }
-
+            
             Section(header: Text("Reviews")) {
                 ForEach(viewModel.data.reviews) { review in
                     VStack(alignment: .leading, spacing: 8) {
@@ -46,15 +46,12 @@ struct MovieDetailsView: View {
     }
 }
 
-struct MovieDetailsView_Previews: PreviewProvider {
-    static let movie = Movie(id: 580489,
-                             title: "Venom: Let There Be Carnage",
-                             overview: "After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.",
-                             posterPath: "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg")
-
-    static var previews: some View {
-        NavigationView {
-            MovieDetailsView(movie: movie)
-        }
+#Preview {
+    let movie = Movie(id: 580489,
+                      title: "Venom: Let There Be Carnage",
+                      overview: "After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.",
+                      posterPath: "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg")
+    return NavigationView {
+        MovieDetailsView(movie: movie)
     }
 }
