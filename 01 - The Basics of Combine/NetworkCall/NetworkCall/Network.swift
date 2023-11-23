@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-func fetchMovies() -> some Publisher<MovieResponse, Error> {
+func fetchMovies() -> AnyPublisher<MovieResponse, Error> {
     let url = URL(string: "https://api.themoviedb.org/3/movie/upcoming?api_key=\(apiKey)")!
     
     return URLSession
@@ -20,6 +20,7 @@ func fetchMovies() -> some Publisher<MovieResponse, Error> {
 //            return decoded
 //        }
         .decode(type: MovieResponse.self, decoder: jsonDecoder)
+        .eraseToAnyPublisher()
 }
 
 func searchMovies(for query: String) -> some Publisher<MovieResponse, Error> {
@@ -60,20 +61,3 @@ func fetchReviews(for movie: Movie) -> some Publisher<MovieReviewsResponse, Erro
         .decode(type: MovieReviewsResponse.self, decoder: jsonDecoder)
         .eraseToAnyPublisher()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

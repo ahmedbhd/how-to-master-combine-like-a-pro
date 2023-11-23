@@ -17,3 +17,9 @@ struct NetworkCallApp: App {
         }
     }
 }
+
+#Preview {
+    NavigationView {
+        MoviesView()
+    }
+}

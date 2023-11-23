@@ -8,11 +8,16 @@
 import Combine
 import Foundation
 
+//class DataStore {
+//    var movies: [Movie] = []
+//}
+
 final class MovieViewModel: ObservableObject {
     @Published private var upcomingMovies: [Movie] = []
-
     @Published var searchQuery: String = ""
     @Published private var searchResults: [Movie] = []
+    
+//    let dataStore = DataStore()
     
     var movies: [Movie] {
         if searchQuery.isEmpty {
@@ -27,6 +32,10 @@ final class MovieViewModel: ObservableObject {
     init() {
         $searchQuery
             .debounce(for: 0.3, scheduler: DispatchQueue.main)
+//            .flatMap { searchQuery in
+//                searchMovies(for: searchQuery)
+//                    .replaceError(with: MovieResponse(results: []))
+//            }
             .map { searchQuery in
                 searchMovies(for: searchQuery)
                     .replaceError(with: MovieResponse(results: []))
@@ -40,21 +49,25 @@ final class MovieViewModel: ObservableObject {
     func fetchInitialData() {
         fetchMovies()
             .map(\.results)
-            .receive(on: DispatchQueue.main)
-            .replaceError(with: [])
-//            .assign(to: \.movies, on: self)
-//            .store(in: &cancellables)
-            .assign(to: &$upcomingMovies)
-            
+            .subscribe(on: DispatchQueue.global(qos: .background)) /// The thread of `URLSession`  (the code that produce result)
+            .receive(on: DispatchQueue.main) /// The thread of `sink`
 //            .sink { completion in
 //                switch completion {
 //                case .finished:()
-//                case .failure(let error):
-//                    print(error.localizedDescription)
+//                case .failure(let failure):
+//                    print(failure.localizedDescription)
 //                }
-//            } receiveValue: { [weak self] movies in
-//                self?.movies = movies
+//            } receiveValue: { [dataStore] movies in
+//                dataStore.movies = movies
 //            }
-//            .store(in: &cancellables)
+//            .replace!Error(with: [])
+            .catch({ error in
+                print(error.localizedDescription)
+                return Just(Array<Movie>())
+            })
+//            .assign(to: \.movies, on: dataStore)
+            .assign(to: &$upcomingMovies)
     }
+    
+    
 }
