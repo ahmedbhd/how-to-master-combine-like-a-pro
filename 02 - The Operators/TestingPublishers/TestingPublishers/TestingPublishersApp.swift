@@ -12,9 +12,6 @@ struct TestingPublishersApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .onAppear {
-                    run()
-                }
         }
     }
 }

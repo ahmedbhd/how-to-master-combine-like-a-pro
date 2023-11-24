@@ -13,7 +13,7 @@ func evenNumbersPublisher() -> some Publisher<Int, Never> {
 }
 
 func oddNumbersPublisher() -> some Publisher<Int, Never> {
-    [1, 3, 5, 7, 9].publisher
+    [1, 3, 5, 7, 9, 10].publisher
 }
 
 func run() {
