@@ -14,6 +14,7 @@ func run() {
     let subject = PassthroughSubject<Int, Never>()
     
     for i in 1...100 where Bool.random() == true {
+//    for i in 1...100 {
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
             print("new value sent: \(i)")
             subject.send(i)
@@ -21,31 +22,28 @@ func run() {
     }
     
 //    subject
-//        .throttle(
-//            for: 10,
-//            scheduler: DispatchQueue.main,
-//            latest: true
-//        )
+//        .throttle(for: 10, scheduler: DispatchQueue.main, latest: true) /// discard all value for 10 seconds
+//        .sink { number in
+//            print("throttled number: \(number)")
+//        }
+//        .store(in: &cancellables)
+    
+//    subject
+//        .debounce(for: 2, scheduler: DispatchQueue.main) /// waits for unchanged value for 2 seconds
 //        .sink { value in
 //            print("new value received: \(value)")
 //        }
 //        .store(in: &cancellables)
     
 //    subject
-//        .debounce(for: 2, scheduler: DispatchQueue.main)
+////        .collect(5)
+////        .collect(.byTime(DispatchQueue.main, 3))
+//        .collect(.byTimeOrCount(DispatchQueue.main, .seconds(10), 5))
 //        .sink { value in
 //            print("new value received: \(value)")
 //        }
 //        .store(in: &cancellables)
     
-//    subject
-//        .collect(5)
-//        .collect(.byTime(DispatchQueue.main, 3))
-//        .collect(.byTimeOrCount(DispatchQueue.main, 10, 5))
-//        .sink { value in
-//            print("new value received: \(value)")
-//        }
-//        .store(in: &cancellables)
     
     class CustomSubscriber: Subscriber {
         typealias Input = Int
